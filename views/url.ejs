@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title><%= title %></title>
+    <meta name="keywords" content="feui,weui,vue,vuejs">
+    <meta name="description" content="feui">
+    <meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+    <link rel="shortcut icon" type="image/ico" href="favicon.ico">
+    <meta name="format-detection" content="telephone=no">
+    <link rel='stylesheet' href='/stylesheets/dwz.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <h3><%= msg %></h3>
+    <h3 id='url'><%= url %></h3>
+    <% if(url==''){ %>
+      <h3>将在<span id='miao'>5</span>秒钟后跳转到首页</h3>
+    <% } %>
+  </body>
+  <script>
+    var url =  document.getElementById('url').innerHTML;
+    // console.log(url)
+    if(url){
+      location.href = url;
+    }else{
+      var miao = document.getElementById('miao').innerHTML-0;
+      setInterval(function(){
+        if(miao<=0){
+          location.href = '/'
+        }else{
+          miao--
+          document.getElementById('miao').innerHTML= miao;
+        }
+      },1000)
+    }
+  </script>
+</html>

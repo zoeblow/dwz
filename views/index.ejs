@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title><%= title %></title>
+    <meta name="keywords" content="dwz,express,node">
+    <meta name="description" content="node+express">
+    <meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+    <link rel="shortcut icon" type="image/ico" href="favicon.ico">
+    <meta name="format-detection" content="telephone=no">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <p>Welcome to <%= title %></p>
+    <div id="container">
+      <div id="content">
+          <div id="msg">
+              <p><%= msg %></p>
+          </div>
+            <% if(url!=''){ %>
+            <p><span id='baseUrl1'></span><%= url %></p>
+            <% } %>
+          <div id="create_form">
+            <form method="post" action='/'>
+              <p>
+                <label for="url">请输入您要缩短的网址(禁止任何违法违规网址,否则您将自己承担法律后果责任)：</label>
+              </p>
+              <p>
+                <input id="url" type="text" name="url" value="" />
+              </p>
+              <p class="ali">
+                <label for="alias">自定义（可选）</label><br>
+                <span id='baseUrl'></span>
+                <input id="alias" maxlength="40" type="text" name="link" readonly>
+                <br>
+                <span>可输入字母、数字、破折号。</span>
+              </p>
+              <p class="but">
+                <input type="submit" value="生 成" class="submit2" name="submit" />
+              </p>
+            </form>
+          </div>
+      </div>
+      <div id="nav">
+        <ul>
+            <li class="current"><a href="/">生成短网址</a></li>
+        </ul>
+      </div>
+      <div id="footer">
+        <p>
+          <b>友情链接：<a href="http://www.ifuyuan.wang" target="_blank">fuyuan.wang</a></b>
+        </p>
+        <p>
+          <b>© 2018  - Powered by <a href="https://gitee.com/zoeblow/dwz">老司机</a> - <a href="JavaScript:;">DWZ</a></b>
+        </p>
+      </div>
+    </div>
+  </body>
+  <script>
+    var ss = location.href
+    document.getElementById('baseUrl').innerHTML=ss;
+    document.getElementById('alias').value=Math.random().toString(36).substring(3, 9);
+
+    if(document.getElementById('baseUrl1')){
+      document.getElementById('baseUrl1').innerHTML=ss;
+    }
+  </script>
+</html>
