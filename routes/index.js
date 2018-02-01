@@ -1,4 +1,4 @@
-var express = require('express');
+var express = require("express");
 var router = express.Router();
 var fs = require("fs");
 
@@ -19,16 +19,16 @@ router.get("/*", function(req, res, next) {
   var hasKey = JsonObj[id];
   var reg = /^https?:\/\/(([a-zA-Z0-9_-])+(\.)?)*(:\d+)?(\/((\.)?(\?)?=?&?[a-zA-Z0-9_-](\?)?)*)*$/i;
   var isTrue = hasKey != undefined && reg.test(hasKey) ? true : false;
-  
+
   // console.log(isTrue);
-  if(hasKey!=undefined){
+  if (hasKey != undefined) {
     res.render("url", {
       title: "成功",
       url: hasKey,
       msg: "连接跳转中"
     });
     res.end(JSON.stringify({ status: "loading" }));
-  }else{
+  } else {
     res.render("url", {
       title: "错误",
       url: "",
@@ -39,33 +39,33 @@ router.get("/*", function(req, res, next) {
 });
 
 //提交接口
-router.post('/',function (req, res, next) {
-    // 打印post请求的数据内容
-    var datas = req.body
-    var JsonObj=JSON.parse(fs.readFileSync('./db/dwz.json'));
-    var hasKey = JsonObj[datas.link];
-    if(hasKey==undefined){
-      JsonObj[datas.link] = datas.url;
-      var last = JSON.stringify(JsonObj);
-      fs.writeFile("./db/dwz.json", last, function() {
-        console.log("success");
-      });
-      var dataSuccess = { status: "success", msg: "成功鸟" };
-      res.render("index", {
-        title: "短网址",
-        msg: "添加成功",
-        url: datas.link
-      });
-      res.end(JSON.stringify(dataSuccess));
-    }else{
-      var dataError = { status: "error", msg: "重名辣" };
-      res.render("index", {
-        title: "短网址",
-        msg: "重名辣",
-        url: ''
-      });
-      // res.end(JSON.stringify(dataError));
-    }
+router.post("/", function(req, res, next) {
+  // 打印post请求的数据内容
+  var datas = req.body;
+  var JsonObj = JSON.parse(fs.readFileSync("./db/dwz.json"));
+  var hasKey = JsonObj[datas.link];
+  if (hasKey == undefined) {
+    JsonObj[datas.link] = datas.url;
+    var last = JSON.stringify(JsonObj);
+    fs.writeFile("./db/dwz.json", last, function() {
+      console.log("success");
+    });
+    var dataSuccess = { status: "success", msg: "成功鸟" };
+    res.render("index", {
+      title: "短网址",
+      msg: "添加成功",
+      url: datas.link
+    });
+    res.end(JSON.stringify(dataSuccess));
+  } else {
+    var dataError = { status: "error", msg: "重名辣" };
+    res.render("index", {
+      title: "短网址",
+      msg: "重名辣",
+      url: ""
+    });
+    // res.end(JSON.stringify(dataError));
+  }
 });
 
 module.exports = router;
